@@ -1,0 +1,117 @@
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+   
+    <div class="buttonContainer">
+      <button mat-raised-button color="warn" class="closeButton" type="button" mat-button (click)="drawer.toggle()">
+        X
+      </button>
+    </div>
+<app-navbar [api]="tokenUrl" hidden></app-navbar>
+<h3 id="titleForm">Add User</h3>
+<form [formGroup]="form" class="formUser">
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput type="text" formControlName="email" #userEmail required>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput type="text" formControlName="name"  #userName required>
+  </mat-form-field>
+  <div *ngIf="userGender.value != '' ">
+    <div id="corretGenderValue" class="alert" *ngIf="!(userGender.value === 'male' || userGender.value === 'female')">
+      <span id="corretGenderValueMessage">Please insert "male" or "female" value.</span>
+    </div>
+  </div>
+  <mat-form-field>
+    <mat-label>Gender</mat-label>
+    <input class="inputGender" matInput type="text" formControlName="gender" #userGender required>
+  </mat-form-field>
+  <div *ngIf="userStatus.value != '' ">
+    <div class="alert" id="corretStatusValue" *ngIf="!(userStatus.value === 'active' || userStatus.value === 'inactive')">
+      <span id="corretStatusValueMessage">Please insert "active" or "inactive" value.</span>
+    </div>
+  </div>
+  <mat-form-field>
+    <mat-label>Status</mat-label>
+    <input matInput type="text" formControlName="status" #userStatus  class="inputStatus" required>
+  </mat-form-field>
+  <button mat-raised-button class="submitButton" type="submit" [disabled]="form.invalid" 
+  (click)="add(userName.value, userGender.value, userEmail.value, userStatus.value)"
+  (click)="drawer.toggle()"
+  >Submit</button>
+</form> 
+
+<h3 id="titleNumberUsersForm">Number of users</h3>
+<form [formGroup]="nUserForm" class="numberUsers">
+  <mat-form-field>
+    <mat-label>Number of users</mat-label>
+    <input matInput type="number" max="100" formControlName="userNumber" #userNumber required>
+  </mat-form-field>
+  <button mat-raised-button class="submitButtonUser" type="submit" [disabled]="nUserForm.invalid" 
+  (click)="getUsers()"
+  (click)="drawer.toggle()"
+  >Submit</button>
+</form>
+
+</mat-drawer>
+
+
+<div class="example-sidenav-content">
+  <div class="search-post">
+    <div class="example-sidenav-content">
+      <button mat-raised-button color="primary" type="button" class="editButton" id="editButtonPosts" mat-button
+        (click)="drawer.toggle()">
+        Edit
+      </button>
+      <input class="searchInput" placeholder="Search post" type="text" name="search" [(ngModel)]="searchText" />
+    </div>
+  </div>
+  
+</div>
+
+<div class="cardContainer">
+<mat-card id="cardFor" class="example-card" *ngFor="let user of users | filter:searchText">
+  <mat-card-header>
+    <mat-card-title-group class="textGruop">
+      <div class="textGruop">
+        <mat-card-title class="overflowText" placeholder="name">{{user.name}}</mat-card-title>
+        <mat-card-subtitle class="overflowText">Id: {{user.id}}</mat-card-subtitle>
+        <mat-card-subtitle class="overflowText" placeholder="email">Email: {{user.email}}</mat-card-subtitle>
+        <mat-card-subtitle class="overflowText" id="genderType"> Gender: {{user.gender}} </mat-card-subtitle>
+          <mat-card-subtitle class="overflowText" class="statusContainer">
+            <div class="status" [ngClass]="{'statusOnline': user.status == 'active', 'statusOffline': user.status == 'inactive'}"></div>
+            {{user.status}}
+          </mat-card-subtitle>
+      </div>
+      <img class="profileImageMale" *ngIf="user.gender == 'male'" mat-card-sm-image src="/assets/img/user-male-image.jpeg" >
+      <img class="profileImageFemale" *ngIf="user.gender == 'female'" mat-card-sm-image src="/assets/img/user-female-image.png" >
+
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content>
+  </mat-card-content> 
+  <div class="buttonUserContainer">
+  <div class="detailUser">
+    <button mat-raised-button color="primary" id="detailsUserButton" routerLink="/detail/{{user.id}}" [queryParams]="{token: tokenUrl}">Details</button>
+  </div>
+  <div class="deleteUser">
+    <button mat-raised-button color="warn" type="button" class="delete" title="delete user"
+        (click)="delete(user)">Delete user</button>
+  </div>
+</div>
+</mat-card>
+</div>
+<div class="buttonPage">
+  <button class="previousPageDisabled" mat-stroked-button #prevPage 
+  color="primary" 
+  *ngIf="this.userService.nPage === 1;else buttonShow"
+  disabled>Previous Page</button>
+  <ng-template  #buttonShow>
+  <button class="previousPageEnabled" mat-stroked-button #prevPage 
+  color="primary" 
+  (click)="previousPage()" 
+  >Previous Page</button>
+</ng-template>
+  <button mat-stroked-button class="nextPage" color="primary" (click)="nextPage()">Next Page</button>
+</div>
+</mat-drawer-container>

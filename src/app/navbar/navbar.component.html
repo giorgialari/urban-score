@@ -1,0 +1,17 @@
+<nav>
+  <mat-toolbar color="primary">
+    <span id="title">Urban Score</span>
+    <div class="spacer"></div>
+    <input id="inputToken" #userApi id="api" hidden/>
+    <div id="routerLogin">
+      <a mat-button id="user" routerLink="/user" 
+      [queryParams]="{token: this.userApi.value}"
+      routerLinkActive="active">Users</a>
+      <a mat-button id="post" routerLink="/posts" 
+      [queryParams]="{token: this.userApi.value}"
+      routerLinkActive="active">Posts</a>
+      <a mat-button  (click)="empty()"  routerLinkActive="active" id="logout">Logout</a>
+    </div>
+    </mat-toolbar>
+</nav>
+

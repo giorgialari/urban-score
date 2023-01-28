@@ -1,0 +1,109 @@
+.example-card-user {
+    max-width: 400px;
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 2% !important;
+   white-space: pre-wrap !important; 
+  }
+  .example-card{
+    margin-left: 1%;
+    margin-bottom: 1%;
+    width: 300px;
+    white-space: pre-wrap !important; 
+  }
+  
+
+.status{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 2%;
+}
+
+.statusOnline{
+  background-color: green;
+}
+
+.statusOffline{
+  background-color: red;
+}
+.statusContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.mat-mdc-form-field + .mat-mdc-form-field {
+  margin-left: 8px;
+  margin-bottom: 10px;
+
+}
+.commentArea{
+  width: 100%;
+}
+.showDataBtnContainer{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cardContainer{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.example-viewport {
+  height: 200px;
+  width: 100%;
+} 
+.postTitle{
+  text-align: center;
+}
+
+.infoCommentsContainer{
+  font-size: 13px;
+  margin-bottom: 1%;
+  font-weight: 400;
+  color: graytext;   
+}
+.bodyCommentsContainer{
+background-color: #f2f2f2;
+padding-top: 1%;
+padding-bottom: 2%;
+border-bottom: 1px solid grey;
+margin-bottom: 2%;
+}
+
+.titleComments{
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 1%;
+}
+
+.commentInsert{
+  display: flex;
+  flex-direction: column;
+}
+.emailNameContainer{
+  display: flex;
+justify-content: space-between;
+}
+.emailNameContainer>mat-form-field{
+  height: 100%;
+}
+.textContainer>mat-form-field{
+  width: 100%;
+}
+.buttonContainer{
+  display: flex;
+  justify-content: flex-end
+}
+
+.example-viewport-comment {
+height: 400px !important;
+width: 100%;
+} 
+@media screen and (max-width: 929px) {
+  .cardContainer{
+      justify-content: center;
+  }
+}

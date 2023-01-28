@@ -1,0 +1,107 @@
+<mat-card class="example-card-user" *ngIf="user">
+  <mat-card-header>
+    <mat-card-title-group>
+      <div class="textGruop">
+      <mat-card-title>{{user.name}}</mat-card-title>
+      <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
+      <mat-card-subtitle>{{user.gender}}</mat-card-subtitle>
+      <mat-card-subtitle class="overflowText" class="statusContainer">
+        <div class="status" [ngClass]="{'statusOnline': user.status == 'active', 'statusOffline': user.status == 'inactive'}"></div>
+        {{user.status}}
+      </mat-card-subtitle>
+      </div>
+      <img *ngIf="user.gender == 'male'" mat-card-sm-image src="/assets/img/user-male-image.jpeg" >
+      <img *ngIf="user.gender == 'female'" mat-card-sm-image src="/assets/img/user-female-image.png" >
+
+    </mat-card-title-group>
+  </mat-card-header>
+</mat-card>
+
+  
+  <!-- POST -->
+  <h2 class="postTitle"  *ngIf="user">{{user.name}} Details</h2>
+  <div class="cardContainer">
+  <mat-card id="bodyFetchPost" class="example-card" *ngFor="let post of posts"> 
+    <mat-card-header>
+      <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
+        <mat-card-title #postTitle id="postTitleFetch"> {{post.title}} </mat-card-title>
+        <mat-card-subtitle #postIdEl id="postFetchId">PostID: {{post.id}}</mat-card-subtitle>
+      <mat-card-subtitle #postBody>{{post.body}}</mat-card-subtitle>
+    </cdk-virtual-scroll-viewport>
+
+    </mat-card-header>
+    <mat-card-actions>
+      <div class="showDataBtnContainer">
+        <button class="showDataBtn"
+        mat-stroked-button color="primary"
+        (click)="openPopup(post.id)">Comments
+      </button>
+      </div>
+    </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <!-- Modale -->
+  <div
+    class="modal"
+    tabindex="-1"
+    role="dialog"
+    [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Comments</h4>
+        </div>
+        <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport-comment">
+        <div class="modal-body">
+          <input #idCommentPost [value]="" hidden/>
+
+          <form [formGroup]="commentForm" class="commentInsert">
+            <div class="emailNameContainer">
+                <mat-form-field>
+                <mat-label>Email</mat-label>
+              <input matInput type="text" formControlName="email" #commentEmail required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Name</mat-label>
+              <input matInput type="text" formControlName="name" #commentName required>
+            </mat-form-field>
+              </div>
+              <div class="textContainer">
+                <mat-form-field>
+                  <mat-label>Text</mat-label>
+                  <textarea matInput class="commentArea" formControlName="body" #commentBody placeholder="Write something..."></textarea>
+                </mat-form-field>
+              </div>
+              <div class="buttonContainer">
+                <button type="submit" mat-stroked-button color="primary" [disabled]="commentForm.invalid" 
+                (click)="onSubmitComment(commentEmail.value, commentName.value, commentBody.value)">Send</button>
+              </div>
+          </form>  
+          <div *ngIf="!comments || comments.length === 0">
+            <p>No messages</p>
+        </div>
+        <div id="txtdataCommens" class="commentContainer" *ngFor="let comment of comments">
+          <div class="titleComments">{{comment.name}}</div>
+          <div class="infoCommentsContainer">
+            <div>Email: {{comment.email}}</div>
+            <div>ID: {{comment.id}}</div>
+            <div>PostID: {{comment.post_id}}</div>
+          </div>
+          <div class="bodyCommentsContainer">
+            <p class="bodyComments">{{comment.body}}</p>
+          </div>
+        </div>
+        </div>
+      </cdk-virtual-scroll-viewport>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" 
+                  (click)="closePopup()">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
