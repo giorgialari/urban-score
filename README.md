@@ -11,6 +11,8 @@ Angular Material was used for the project graphics and Angular Search Filter Pip
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.4.
 
+Deploy: https://urbanscore.netlify.app/
+
 ## Development server
 
 Run `npm install` to download the @node-modules folder.
