@@ -1,4 +1,4 @@
-.cardContainer{
+/* .cardContainer{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -7,7 +7,7 @@
   margin-left: 1%;
   margin-bottom: 1%;
   width: 300px;
-  white-space: pre-wrap !important; 
+  white-space: pre-wrap !important;
 }
 .overflowText{
   word-break: break-all !important;
@@ -103,4 +103,4 @@ button {
   .cardContainer{
       justify-content: center;
   }
-}
+} */

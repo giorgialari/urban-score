@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SigninComponent } from '../signin/signin.component';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
+import { Subscription } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -8,29 +9,33 @@ import { SigninComponent } from '../signin/signin.component';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  @Input() api:any;
+  constructor(private authService: AuthService, private router: Router) { }
+  showNavbar = false;
 
-  constructor(
-    private router:Router){}
- 
+  ngOnInit() {
+    this.updateNavbarVisibility();
 
-    urlPath = window.location.pathname;
-    currentPath = this.urlPath
-
-    ngOnInit() {
-      (document.getElementById('api') as HTMLInputElement).value =this.api;
-      if(this.currentPath == '/'){
-        (document.getElementById('routerLogin') as HTMLInputElement).style.display ='none'
-      } else{
-        (document.getElementById('routerLogin') as HTMLInputElement).style.display ='block'
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.updateNavbarVisibility();
       }
-    }
+    });
+  }
 
-  empty(){
-    (document.getElementById('api') as HTMLInputElement).value =''
-    window.location.href='/'
+  private updateNavbarVisibility() {
+    const token = localStorage.getItem('token');
+    if (token || this.router.url !== '/') {
+      this.showNavbar = true;
+    } else {
+      this.showNavbar = false;
+    }
   }
 
 
+
+  logout() {
+    this.showNavbar = false;
+    this.authService.logout();
+  }
 
 }

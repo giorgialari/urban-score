@@ -93,12 +93,12 @@ export class UserDetailComponent implements OnInit {
     email = email.trim();
     name = name.trim();
     body = body.trim();
-    this.commentService.APIkey = this.urlToken as string
+    this.commentService.APIkey = localStorage.getItem('token') as string;
     this.commentService.postId = this.idCommentPost.nativeElement.value
 
     this.commentService.addComments(email, name, body).subscribe(data => {
       this.comments.push(data);
-      //Aggiorna la modale per inserire il commento 
+      //Aggiorna la modale per inserire il commento
       this.openPopup(this.idCommentPost.nativeElement.value)
       // Reset form-inputs:
       this.commentForm.reset();
@@ -111,13 +111,13 @@ export class UserDetailComponent implements OnInit {
 
   }
   getCommentDetailByUser(): void {
-    this.commentService.APIkey = this.urlToken as string
+    this.commentService.APIkey = localStorage.getItem('token') as string;
     this.commentService.getComments().subscribe(comments => this.comments = comments);
   }
   //User by ID
   getPostDetailByUser(): void {
-    this.postService.APIkey = this.urlToken as string
-    this.postService.userid = this.userId;
+    this.postService.APIkey = localStorage.getItem('token') as string;
+    this.postService.userid = this.route.snapshot.paramMap.get('id')
     this.postService.getPosts().subscribe(posts => this.posts = posts);
   }
 
@@ -127,10 +127,6 @@ export class UserDetailComponent implements OnInit {
       .subscribe(user => this.user = user);
   }
 
-  urlParams = new URLSearchParams(window.location.search)
-  urlToken = this.urlParams.get('token')
 
-  urlPath = window.location.pathname;
-  userId = this.urlPath.substring(this.urlPath.lastIndexOf('/') + 1);
 
 }

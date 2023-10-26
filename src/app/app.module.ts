@@ -29,8 +29,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 
 
 import { UserDetailComponent } from './user-detail/user-detail.component';
-import { PostsComponent } from './posts/posts.component';
-import { LogoutComponent } from './logout/logout.component';
+import { AddUserComponent } from './user/add-user/add-user.component';
 
 
 
@@ -43,8 +42,7 @@ import { LogoutComponent } from './logout/logout.component';
     SigninComponent,
     UserComponent,
     UserDetailComponent,
-    PostsComponent,
-    LogoutComponent,
+    AddUserComponent,
   ],
   imports: [
     BrowserModule,

@@ -17,11 +17,11 @@
   </mat-card-header>
 </mat-card>
 
-  
+
   <!-- POST -->
   <h2 class="postTitle"  *ngIf="user">{{user.name}} Details</h2>
   <div class="cardContainer">
-  <mat-card id="bodyFetchPost" class="example-card" *ngFor="let post of posts"> 
+  <mat-card id="bodyFetchPost" class="example-card" *ngFor="let post of posts">
     <mat-card-header>
       <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
         <mat-card-title #postTitle id="postTitleFetch"> {{post.title}} </mat-card-title>
@@ -40,6 +40,7 @@
     </mat-card-actions>
     </mat-card>
   </div>
+
 
   <!-- Modale -->
   <div
@@ -74,10 +75,10 @@
                 </mat-form-field>
               </div>
               <div class="buttonContainer">
-                <button type="submit" mat-stroked-button color="primary" [disabled]="commentForm.invalid" 
+                <button type="submit" mat-stroked-button color="primary" [disabled]="commentForm.invalid"
                 (click)="onSubmitComment(commentEmail.value, commentName.value, commentBody.value)">Send</button>
               </div>
-          </form>  
+          </form>
           <div *ngIf="!comments || comments.length === 0">
             <p>No messages</p>
         </div>
@@ -95,7 +96,7 @@
         </div>
       </cdk-virtual-scroll-viewport>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" 
+          <button type="button" class="btn btn-danger"
                   (click)="closePopup()">
             Close
           </button>

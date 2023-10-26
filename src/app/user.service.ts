@@ -12,7 +12,7 @@ import { MessageService } from './message.service';
 })
 export class UserService {
   APIkey = '';
-  nUsers:any = '10';
+  nUsers: any = '10';
   nPage: any = 1;
   private url = 'https://gorest.co.in/public/v2/users'// URL to web api
 
@@ -25,14 +25,14 @@ export class UserService {
     private messageService: MessageService) { }
 
 
-   /** GET Users from the server */
-     getUsers(): Observable<User[]> {
-      const url = `${this.url}?page=${this.nPage}&per_page=${this.nUsers}&access-token=${this.APIkey}`;
-      return this.http.get<User[]>(url)
+  /** GET Users from the server */
+  getUsers(): Observable<User[]> {
+    const url = `${this.url}?page=${this.nPage}&per_page=${this.nUsers}&access-token=${this.APIkey}`;
+    return this.http.get<User[]>(url)
       .pipe(
         tap(_ => this.log('fetched users')),
         catchError(this.handleError<User[]>('getUsers', []))
-      ); 
+      );
   }
 
 
@@ -47,19 +47,13 @@ export class UserService {
   }
 
 
-addUser(email: string, name: string, gender: string, status: string){
-  const addUserUrl = `${this.url}?access-token=${this.APIkey}`;
-  return this.http.post<User>(addUserUrl,{
-    email: email, 
-    name: name, 
-    gender: gender, 
-    status: status,
-    returnSecureToken: true
- });
-}
+  addUser(user: User): Observable<User> {
+    const addUserUrl = `${this.url}?access-token=${this.APIkey}`;
+    return this.http.post<User>(addUserUrl, user);
+  }
 
-   /** DELETE: delete the user from the server */
-   deleteUser(id: number): Observable<User> {
+  /** DELETE: delete the user from the server */
+  deleteUser(id: number): Observable<User> {
     const url = `${this.url}/${id}/?access-token=${this.APIkey}`;
 
     return this.http.delete<User>(url, this.httpOptions).pipe(
@@ -68,13 +62,13 @@ addUser(email: string, name: string, gender: string, status: string){
     );
   }
 
-    /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   *
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
+  /**
+ * Handle Http operation that failed.
+ * Let the app continue.
+ *
+ * @param operation - name of the operation that failed
+ * @param result - optional value to return as the observable result
+ */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
