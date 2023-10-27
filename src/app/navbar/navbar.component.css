@@ -1,10 +1,9 @@
-.mat-toolbar{
-  background-color: cornflowerblue;
-  color: white;
+.navbar{
+  background-color: #4267b2;
 }
-.mat-button{
-   color: white;
+
+.btn, .btn-primary {
+  font-size: 0.9em;
+  border-radius: 20px;
 }
-.spacer{
-  flex: 1 1 auto;
-}
+

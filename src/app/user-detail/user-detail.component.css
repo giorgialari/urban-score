@@ -15,6 +15,10 @@ button {
   font-family: Helvetica;
 }
 
+button{
+  background-color: #4267b2;
+  border: #4267b2;
+}
 
 img {
   display: block;
@@ -373,30 +377,6 @@ a {
   top: -1px;
 }
 
-#t-box {
-  font-size: 14px;
-  color: #686868;
-  padding-top: 24px;
-  line-height: 18px;
-}
-
-#t-box a {
-  margin-right: 5px;
-}
-
-#t-box a,
-#t-more {
-  color: #999;
-}
-
-#t-more {
-  cursor: pointer;
-}
-
-#t-more i {
-  font-size: 15px;
-  vertical-align: middle;
-}
 
 #cpy-nt {
   margin-top: 4px;
@@ -694,4 +674,8 @@ a {
   #u-name {
     font-size: 20px;
   }
+}
+.btn {
+  font-size: 0.9em;
+  border-radius: 20px; /* Rende i pulsanti leggermente arrotondati */
 }

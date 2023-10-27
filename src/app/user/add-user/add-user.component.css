@@ -1,0 +1,92 @@
+/* Stile generale per la modale */
+.modal-content {
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Questo assicura che tutti gli angoli arrotondati siano coerenti */
+}
+
+.modal-header {
+  background-color: #f8f9fa; /* Un colore di sfondo leggermente grigio per l'intestazione */
+  border-bottom: 1px solid #e2e6ea;
+}
+
+.modal-title {
+  font-weight: 600; /* Titolo un po' più audace */
+  color: #333;
+}
+
+.btn-close {
+  background-color: #d1d3d7; /* Un colore di sfondo per il pulsante di chiusura */
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+/* Stili per gli input del form */
+.form-outline {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.form-outline input {
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid #d1d3d7;
+  transition: border 0.2s;
+}
+
+.form-outline input:focus {
+  border-color: #007bff;
+  box-shadow: none; /* Rimuove l'ombra di default */
+}
+
+.form-outline label {
+  position: absolute;
+  top: -10px;
+  left: 15px;
+  background-color: #f5f5f5; /* Sfondo bianco per la label */
+  padding: 0 5px;
+  font-size: 0.8em;
+  color: #666;
+}
+
+.form-select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #d1d3d7;
+  margin-top: 20px;
+}
+
+/* Stili per i pulsanti nella sezione footer */
+.modal-footer .btn {
+  border-radius: 5px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-secondary {
+  background-color: #d1d3d7;
+  border-color: #d1d3d7;
+}
+
+.btn-secondary:hover {
+  background-color: #c0c3c8;
+  border-color: #c0c3c8;
+}
+button{
+  font-size: 0.9em !important;
+  border-radius: 20px !important;
+}
+.btn-primary {
+  background-color: #4267b2 !important;
+  border-color: #4267b2  !important;
+}
+
+.btn-primary:hover {
+  background-color: #4267b2  !important;
+}

@@ -1,9 +1,6 @@
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="showNavbar">
-  <!-- Container wrapper -->
+<nav class="navbar navbar-expand-lg" *ngIf="showNavbar">
   <div class="container">
-    <!-- Navbar brand -->
-    <a class="navbar-brand me-2" href="https://mdbgo.com/">
+    <!-- <a class="navbar-brand me-2" href="https://mdbgo.com/">
       <img
         src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
         height="16"
@@ -11,9 +8,8 @@
         loading="lazy"
         style="margin-top: -1px;"
       />
-    </a>
+    </a> -->
 
-    <!-- Toggle button -->
     <button
       class="navbar-toggler"
       type="button"
@@ -26,24 +22,18 @@
       <i class="fas fa-bars"></i>
     </button>
 
-    <!-- Collapsible wrapper -->
     <div class="collapse navbar-collapse" id="navbarButtonsExample">
-      <!-- Left links -->
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/user">Dashboard</a>
+          <a class="nav-link text-white" routerLink="/user">Dashboard</a>
         </li>
       </ul>
-      <!-- Left links -->
 
       <div class="d-flex align-items-center">
-        <button type="button" class="btn btn-link px-3 me-2" (click)="logout()" >
+        <button type="button" class="btn btn-outline-primary text-white border-white px-3 me-2" (click)="logout()" >
           Logout
         </button>
       </div>
     </div>
-    <!-- Collapsible wrapper -->
   </div>
-  <!-- Container wrapper -->
 </nav>
-<!-- Navbar -->

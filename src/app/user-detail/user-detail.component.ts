@@ -70,7 +70,7 @@ export class UserDetailComponent implements OnInit {
     this.formPost = new FormGroup({
       user: new FormControl('', Validators.required),
       user_id: new FormControl('', Validators.required),
-      title: new FormControl('default', Validators.required),
+      title: new FormControl('', Validators.required),
       body: new FormControl('', Validators.required)
     });
   }

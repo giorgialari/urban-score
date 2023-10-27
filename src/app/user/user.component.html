@@ -1,24 +1,24 @@
 <div class="d-flex justify-content-center my-4 col-12">
   <input
-    class="searchInput col-8"
-    placeholder="Search post"
+    class="searchInput col-8 me-1"
+    placeholder="Search user..."
     type="text"
     name="search"
     [(ngModel)]="searchText"
   />
   <button
     type="button"
-    class="btn btn-primary mx-2"
+    class="btn btn-primary p-2"
     data-mdb-toggle="modal"
     data-mdb-target="#exampleModal"
   >
-    Add new
+    Add new user
   </button>
 </div>
-
-<div class="card-container d-flex flex-wrap gap-3 justify-content-center col-10 mx-auto">
-  <ng-container *ngFor="let user of users | filter : searchText">
-      <div class="card mb-4">
+<div class="card-container d-flex flex-column col-10 mx-auto">
+  <div class="d-flex flex-wrap gap-3 justify-content-center mt-5">
+    <ng-container *ngFor="let user of users | filter : searchText">
+      <!-- <div class="card mb-4">
         <div class="card-body text-center d-flex flex-column justify-content-between">
           <img
             [src]="'/assets/img/user-' + (user.gender == 'male' ? 'male' : 'female') + '-image.' + (user.gender == 'male' ? 'jpeg' : 'png')"
@@ -44,47 +44,76 @@
             </button>
           </div>
         </div>
+      </div> -->
+      <div class="card mb-5">
+        <img
+          [src]="
+            '/assets/img/user-' +
+            (user.gender == 'male' ? 'male' : 'female') +
+            '-image.' +
+            (user.gender == 'male' ? 'jpeg' : 'png')
+          "
+          alt="avatar"
+          class="rounded-circle img-fluid"
+        />
+        <div class="card-body text-center d-flex flex-column justify-content-between">
+          <h5>{{ user.name }}</h5>
+          <div class="buttonPage d-flex justify-content-center aling-items-end">
+            <button
+              type="button"
+              class="btn btn-primary"
+              routerLink="/detail/{{ user.id }}"
+            >
+              Details
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-danger ms-1"
+              (click)="delete(user)"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
       </div>
-  </ng-container>
-</div>
-
-<div class="buttonPage">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <!-- Form per selezionare il numero di utenti per pagina -->
-    <div>
-      <select
+    </ng-container>
+  </div>
+  <div class="buttonPage col-6 mx-auto">
+    <div class="d-flex justify-content-center align-items-center">
+      <!-- Form per selezionare il numero di utenti per pagina -->
+      <div class="me-1">
+        <select
           id="userSelection"
           class="form-select"
           [(ngModel)]="selectedUserCount"
           (change)="getUsers()"
-      >
+        >
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="20">20</option>
           <option value="50">50</option>
-      </select>
-  </div>
+        </select>
+      </div>
 
+      <!-- Pulsanti per la navigazione delle pagine -->
+      <div>
+        <button
+          *ngIf="this.userService.nPage != 1"
+          type="button"
+          #prevPage
+          class="btn btn-outline-primary me-2"
+          data-mdb-ripple-color="dark"
+          (click)="previousPage()"
+        >
+          Previous Page
+        </button>
 
-    <!-- Pulsanti per la navigazione delle pagine -->
-    <div>
-      <button
-        *ngIf="this.userService.nPage != 1"
-        type="button"
-        #prevPage
-        class="btn btn-outline-primary me-2"
-        data-mdb-ripple-color="dark"
-        (click)="previousPage()"
-      >
-        Previous Page
-      </button>
-
-      <button type="button" class="btn btn-primary" (click)="nextPage()">
-        Next Page
-      </button>
+        <button type="button" class="btn btn-primary" (click)="nextPage()">
+          Next Page
+        </button>
+      </div>
     </div>
   </div>
 </div>
-
 
 <app-add-user></app-add-user>
