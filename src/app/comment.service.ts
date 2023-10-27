@@ -19,9 +19,10 @@ import { PostService } from './post.service';
 export class CommentService {
   posts: Post[] = [];
   APIkey = '';
-  postId:any = '';
+  postId: any = '';
   panelOpenState = false;
   public url = 'https://gorest.co.in/public/v2/posts'
+  public urlComment = 'https://gorest.co.in/public/v2/comments'
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -30,25 +31,38 @@ export class CommentService {
     private http: HttpClient,
     private messageService: MessageService) { }
 
-    /** GET Comments from the server */
-    getComments(): Observable<Comment[]> {
-      const url = `${this.url}/${this.postId}/comments?access-token=${this.APIkey}`;
-      return this.http.get<Comment[]>(url)
+  /** GET Comments from the server */
+  getComments(): Observable<Comment[]> {
+    const url = `${this.url}/${this.postId}/comments?access-token=${this.APIkey}`;
+    return this.http.get<Comment[]>(url)
       .pipe(
         tap(_ => this.log('fetched comments')),
         catchError(this.handleError<Comment[]>('getComments', []))
-      ); 
+      );
   }
 
-   /** POST: add a new comment to the server */
-   addComments(email: string, name: string, body:string){
+  getAllComments(): Observable<Comment[]> {
+    const url = `${this.urlComment}?access-token=${this.APIkey}`;
+    return this.http.get<Comment[]>(url)
+      .pipe(
+        tap(_ => this.log('fetched comments')),
+        catchError(this.handleError<Comment[]>('getComments', []))
+      );
+  }
+
+
+
+
+  /** POST: add a new comment to the server */
+  addComments(email: string, name: string, body: string) {
     const addCommentUrl = `${this.url}/${this.postId}/comments?access-token=${this.APIkey}`;
-    return this.http.post<Comment>(addCommentUrl,{
-      email: email, 
-      name: name, 
-      body: body, 
-      returnSecureToken: true});
-}
+    return this.http.post<Comment>(addCommentUrl, {
+      email: email,
+      name: name,
+      body: body,
+      returnSecureToken: true
+    });
+  }
 
 
   /**
@@ -58,7 +72,7 @@ export class CommentService {
    * @param operation - name of the operation that failed
    * @param result - optional value to return as the observable result
    */
-   handleError<T>(operation = 'operation', result?: T) {
+  handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
       console.error(error); // log to console instead
@@ -69,8 +83,8 @@ export class CommentService {
       return of(result as T);
     };
   }
-   /** Log a UserService message with the MessageService */
-    log(message: string) {
+  /** Log a UserService message with the MessageService */
+  log(message: string) {
     this.messageService.add(`UserService: ${message}`);
   }
 }

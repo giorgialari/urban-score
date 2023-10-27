@@ -1,108 +1,317 @@
-<mat-card class="example-card-user" *ngIf="user">
-  <mat-card-header>
-    <mat-card-title-group>
-      <div class="textGruop">
-      <mat-card-title>{{user.name}}</mat-card-title>
-      <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
-      <mat-card-subtitle>{{user.gender}}</mat-card-subtitle>
-      <mat-card-subtitle class="overflowText" class="statusContainer">
-        <div class="status" [ngClass]="{'statusOnline': user.status == 'active', 'statusOffline': user.status == 'inactive'}"></div>
-        {{user.status}}
-      </mat-card-subtitle>
+
+<div *ngIf="user">
+  <div id="profile-upper">
+    <div id="profile-banner-image">
+      <img
+        src="https://picsum.photos/1200"
+        alt="Banner image"
+      />
+    </div>
+    <div id="profile-d">
+      <div id="profile-pic">
+        <img
+          [src]="
+            '/assets/img/user-' +
+            (user.gender == 'male' ? 'male' : 'female') +
+            '-image.' +
+            (user.gender == 'male' ? 'jpeg' : 'png')
+          "
+        />
       </div>
-      <img *ngIf="user.gender == 'male'" mat-card-sm-image src="/assets/img/user-male-image.jpeg" >
-      <img *ngIf="user.gender == 'female'" mat-card-sm-image src="/assets/img/user-female-image.png" >
-
-    </mat-card-title-group>
-  </mat-card-header>
-</mat-card>
-
-
-  <!-- POST -->
-  <h2 class="postTitle"  *ngIf="user">{{user.name}} Details</h2>
-  <div class="cardContainer">
-  <mat-card id="bodyFetchPost" class="example-card" *ngFor="let post of posts">
-    <mat-card-header>
-      <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
-        <mat-card-title #postTitle id="postTitleFetch"> {{post.title}} </mat-card-title>
-        <mat-card-subtitle #postIdEl id="postFetchId">PostID: {{post.id}}</mat-card-subtitle>
-      <mat-card-subtitle #postBody>{{post.body}}</mat-card-subtitle>
-    </cdk-virtual-scroll-viewport>
-
-    </mat-card-header>
-    <mat-card-actions>
-      <div class="showDataBtnContainer">
-        <button class="showDataBtn"
-        mat-stroked-button color="primary"
-        (click)="openPopup(post.id)">Comments
-      </button>
-      </div>
-    </mat-card-actions>
-    </mat-card>
+      <div id="u-name">{{ user.name }}</div>
+    </div>
+    <div id="black-grd"></div>
   </div>
 
-
-  <!-- Modale -->
-  <div
-    class="modal"
-    tabindex="-1"
-    role="dialog"
-    [ngStyle]="{'display':displayStyle}">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Comments</h4>
-        </div>
-        <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport-comment">
-        <div class="modal-body">
-          <input #idCommentPost [value]="" hidden/>
-
-          <form [formGroup]="commentForm" class="commentInsert">
-            <div class="emailNameContainer">
-                <mat-form-field>
-                <mat-label>Email</mat-label>
-              <input matInput type="text" formControlName="email" #commentEmail required>
-              </mat-form-field>
-              <mat-form-field>
-                <mat-label>Name</mat-label>
-              <input matInput type="text" formControlName="name" #commentName required>
-            </mat-form-field>
-              </div>
-              <div class="textContainer">
-                <mat-form-field>
-                  <mat-label>Text</mat-label>
-                  <textarea matInput class="commentArea" formControlName="body" #commentBody placeholder="Write something..."></textarea>
-                </mat-form-field>
-              </div>
-              <div class="buttonContainer">
-                <button type="submit" mat-stroked-button color="primary" [disabled]="commentForm.invalid"
-                (click)="onSubmitComment(commentEmail.value, commentName.value, commentBody.value)">Send</button>
-              </div>
-          </form>
-          <div *ngIf="!comments || comments.length === 0">
-            <p>No messages</p>
-        </div>
-        <div id="txtdataCommens" class="commentContainer" *ngFor="let comment of comments">
-          <div class="titleComments">{{comment.name}}</div>
-          <div class="infoCommentsContainer">
-            <div>Email: {{comment.email}}</div>
-            <div>ID: {{comment.id}}</div>
-            <div>PostID: {{comment.post_id}}</div>
+  <div id="main-content">
+    <div class="tb page-container">
+      <div class="td" id="l-col">
+        <div class="l-cnt">
+          <div class="cnt-label">
+            <i class="l-i" id="l-i-i"></i>
+            <span>Intro</span>
+            <div class="lb-action"><i class="material-icons">edit</i></div>
           </div>
-          <div class="bodyCommentsContainer">
-            <p class="bodyComments">{{comment.body}}</p>
+          <div id="i-box">
+            <div id="intro-line">{{user.name}}</div>
+            <div id="u-occ">{{user.email}}</div>
+            <div id="u-loc">
+              <div class="capitalize">{{user.gender}},
+                <span>{{user.gender == 'male' ? 'He/Him' : 'She/Her'}}</span>
+              </div>
+            </div>
           </div>
         </div>
+        <div class="l-cnt l-mrg">
+          <div class="cnt-label">
+            <i class="l-i" id="l-i-p"></i>
+            <span>Photos</span>
+            <div class="lb-action" id="b-i">
+              <i class="material-icons">keyboard_arrow_down</i>
+            </div>
+          </div>
+          <div id="photos">
+            <div class="tb">
+              <div class="tr">
+                <div class="td"></div>
+                <div class="td"></div>
+                <div class="td"></div>
+              </div>
+              <div class="tr">
+                <div class="td"></div>
+                <div class="td"></div>
+                <div class="td"></div>
+              </div>
+              <div class="tr">
+                <div class="td"></div>
+                <div class="td"></div>
+                <div class="td"></div>
+              </div>
+            </div>
+          </div>
         </div>
-      </cdk-virtual-scroll-viewport>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger"
-                  (click)="closePopup()">
-            Close
-          </button>
+        <div class="l-cnt l-mrg">
+          <div class="cnt-label">
+            <i class="l-i" id="l-i-k"></i>
+            <span>Did You Know<i id="k-nm">1</i></span>
+          </div>
+          <div>
+            <div class="q-ad-c">
+              <a href="#" class="q-ad">
+                <img
+                  src="https://imagizer.imageshack.com/img923/1849/4TnLy1.png"
+                />
+                <span>My favorite superhero is...</span>
+              </a>
+            </div>
+            <div class="q-ad-c">
+              <a href="#" class="q-ad" id="add_q">
+                <i class="material-icons">add</i>
+                <span>Add Answer</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div id="t-box">
+          <a href="#">Privacy</a> <a href="#">Terms</a>
+          <a href="#">Advertising</a> <a href="#">Ad Choices</a>
+          <a href="#">Cookies</a>
+          <span id="t-more"
+            >More<i class="material-icons">arrow_drop_down</i></span
+          >
+          <div id="cpy-nt">Facebook &copy; <span id="curr-year"></span></div>
+        </div>
+      </div>
+      <div class="td" id="m-col">
+        <!-- ADD NEW POST /////-->
+        <form
+          [formGroup]="formPost"
+          (ngSubmit)="onSubmitPost(user.name, user.id)"
+        >
+          <div class="m-mrg" id="composer">
+            <div id="c-tabs-cvr">
+              <div class="tb" id="c-tabs">
+                <div class="td active">
+                  <i class="material-icons">subject</i><span>Make Post</span>
+                </div>
+              </div>
+            </div>
+            <div id="c-c-main">
+              <div class="tb">
+                <div class="td" id="p-c-i">
+                  <img
+                    [src]="
+                      '/assets/img/user-' +
+                      (user.gender == 'male' ? 'male' : 'female') +
+                      '-image.' +
+                      (user.gender == 'male' ? 'jpeg' : 'png')
+                    "
+                    alt="Profile pic"
+                  />
+                </div>
+                <div class="td" id="c-inp">
+                  <input
+                    type="text"
+                    placeholder="What's on your mind?"
+                    formControlName="body"
+                  />
+                </div>
+              </div>
+              <div
+                id="actions"
+                class="d-flex align-items-center justify-content-end my-2"
+              >
+                <button type="submit" class="btn btn-primary">Publish</button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <!--- \\\\\\\ADD NEW POST END-->
+        <!--- \\\\\\\Post-->
+        <div class="card gedf-card my-3" *ngFor="let post of posts">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="mr-2">
+                  <img
+                    class="rounded-circle"
+                    width="45"
+                    src="https://picsum.photos/50/50"
+                    alt=""
+                  />
+                </div>
+                <div class="ml-2">
+                  <div class="h5 m-0">@{{ user.name }}</div>
+                  <!-- <div class="h7 text-muted">{{ post.title }}</div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <a class="card-link" href="#">
+              <h5 class="card-title">
+                {{ post.title }}
+              </h5>
+            </a>
+
+            <p class="card-text">
+              {{ post.body }}
+            </p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
+            <a href="#" class="card-link"
+              ><i class="fa fa-comment"></i> Comment</a
+            >
+            <a href="#" class="card-link"
+              ><i class="fa fa-mail-forward"></i> Share</a
+            >
+            <!-- Comment Box inserito direttamente nel card-footer -->
+            <form
+              [formGroup]="commentForm"
+              (ngSubmit)="onSubmitComment(post.id)"
+            >
+              <div class="mt-3">
+                <div class="d-flex my-2">
+                  <input
+                    class="form-control me-2"
+                    placeholder="Your email"
+                    type="text"
+                    formControlName="email"
+                  />
+                  <input
+                    class="form-control"
+                    placeholder="Your name"
+                    type="text"
+                    formControlName="name"
+                  />
+                </div>
+                <textarea
+                  class="form-control"
+                  rows="3"
+                  formControlName="body"
+                  placeholder="What are you thinking?"
+                ></textarea>
+                <div class="d-flex align-items-center justify-content-end">
+                  <button
+                    type="submit"
+                    class="btn btn-primary float-right mt-2"
+                  >
+                    Comment
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <!-- Commenti precedenti -->
+            <div class="mt-3">
+              <!-- Single Comment -->
+              <div
+                class="border-top pt-2 mb-2"
+                *ngFor="let comment of commentCurrentPost(post.id)"
+              >
+                <div class="d-flex justify-content-between align-items-center">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="mr-2">
+                      <img
+                        class="rounded-circle"
+                        width="30"
+                        src="https://picsum.photos/30/30"
+                        alt=""
+                      />
+                    </div>
+                    <div class="ml-2">
+                      <div class="h6 m-1">{{ comment.name }}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-2">
+                  <p class="mb-0">{{ comment.body }}</p>
+                </div>
+              </div>
+              <!-- End Single Comment -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Post /////-->
+      </div>
+      <div class="td" id="r-col">
+        <div id="chat-bar">
+          <div id="chat-lb">
+            <i class="material-icons">contacts</i><span>Contacts</span>
+          </div>
+          <div id="cts">
+            <div class="on-ct active">
+              <a href="#"
+                ><img
+                  src="https://imagizer.imageshack.com/img924/4231/JnFicn.jpg"
+              /></a>
+            </div>
+            <div class="on-ct active">
+              <a href="#"
+                ><img
+                  src="https://imagizer.imageshack.com/img923/332/1abR4H.png"
+              /></a>
+            </div>
+            <div class="on-ct">
+              <a href="#"
+                ><img
+                  src="https://imagizer.imageshack.com/img924/4231/JnFicn.jpg"
+              /></a>
+            </div>
+            <div class="on-ct active">
+              <a href="#"
+                ><img
+                  src="https://imagizer.imageshack.com/img923/332/1abR4H.png"
+              /></a>
+            </div>
+            <div class="on-ct active">
+              <a href="#"
+                ><img
+                  src="https://imagizer.imageshack.com/img924/4231/JnFicn.jpg"
+              /></a>
+            </div>
+            <div class="on-ct">
+              <a href="#"
+                ><img
+                  src="https://imagizer.imageshack.com/img924/4231/JnFicn.jpg"
+              /></a>
+            </div>
+            <div class="on-ct">
+              <a href="#"
+                ><img
+                  src="https://imagizer.imageshack.com/img923/332/1abR4H.png"
+              /></a>
+            </div>
+            <div class="on-ct" id="ct-sett">
+              <i class="material-icons">settings</i>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-
+</div>

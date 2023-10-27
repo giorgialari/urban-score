@@ -30,6 +30,7 @@ export class UserDetailComponent implements OnInit {
   posts: Post[] = [];
   comments: Comment[] = [];
   commentForm: FormGroup
+  formPost: FormGroup
 
   @ViewChild('post') post!: ElementRef;
   @ViewChild('postIdP') postIdP!: ElementRef;
@@ -64,6 +65,14 @@ export class UserDetailComponent implements OnInit {
       name: new FormControl('', Validators.required),
       body: new FormControl('', Validators.required)
     });
+
+    // Initialize the form Post
+    this.formPost = new FormGroup({
+      user: new FormControl('', Validators.required),
+      user_id: new FormControl('', Validators.required),
+      title: new FormControl('default', Validators.required),
+      body: new FormControl('', Validators.required)
+    });
   }
 
   @ViewChild('idCommentPost') idCommentPost!: ElementRef;
@@ -72,6 +81,7 @@ export class UserDetailComponent implements OnInit {
   ngOnInit(): void {
     this.getDetailUser();
     this.getPostDetailByUser();
+    this.getAllComments();
 
   }
   displayStyle = "none";
@@ -88,18 +98,35 @@ export class UserDetailComponent implements OnInit {
     this.displayStyle = "none";
   }
 
+  onSubmitPost(userName: string, userID: number): void {
+    const user = userName;
+    const title = this.formPost.get('title')?.value;
+    const body = this.formPost.get('body')?.value;
+    this.postService.APIkey = localStorage.getItem('token') as string;
+    this.postService.userid = userID;
+    this.postService.addPost(user, userID, title, body).subscribe(data => {
+    this.getPostDetailByUser();
+      // Reset form-inputs:
+      this.formPost.reset();
+    },
+      error => {
+        if (error.status) {
+          alert('Errore: ' + JSON.stringify(error.error));
+        }
+      });
+  }
 
-  onSubmitComment(email: string, name: string, body: string): void {
-    email = email.trim();
-    name = name.trim();
-    body = body.trim();
+
+  onSubmitComment(postId: number): void {
+
+    const email = this.commentForm.get('email')?.value;
+    const name = this.commentForm.get('name')?.value;
+    const body = this.commentForm.get('body')?.value;
     this.commentService.APIkey = localStorage.getItem('token') as string;
-    this.commentService.postId = this.idCommentPost.nativeElement.value
+    this.commentService.postId = postId;
 
     this.commentService.addComments(email, name, body).subscribe(data => {
       this.comments.push(data);
-      //Aggiorna la modale per inserire il commento
-      this.openPopup(this.idCommentPost.nativeElement.value)
       // Reset form-inputs:
       this.commentForm.reset();
     },
@@ -114,6 +141,11 @@ export class UserDetailComponent implements OnInit {
     this.commentService.APIkey = localStorage.getItem('token') as string;
     this.commentService.getComments().subscribe(comments => this.comments = comments);
   }
+
+  getAllComments(): void {
+    this.commentService.APIkey = localStorage.getItem('token') as string;
+    this.commentService.getAllComments().subscribe(comments => this.comments = comments);
+  }
   //User by ID
   getPostDetailByUser(): void {
     this.postService.APIkey = localStorage.getItem('token') as string;
@@ -126,7 +158,9 @@ export class UserDetailComponent implements OnInit {
     this.userService.getUserById(id)
       .subscribe(user => this.user = user);
   }
-
+  commentCurrentPost(postID: number) {
+    return this.comments.filter(comment => comment.post_id === postID);
+  }
 
 
 }

@@ -1,128 +1,90 @@
-<!-- <div class="example-sidenav-content">
-    <div class="search-post">
-      <div class="example-sidenav-content">
-        <button
-          mat-raised-button
-          color="primary"
-          type="button"
-          class="editButton"
-          id="editButtonPosts"
-          mat-button
-          (click)="drawer.toggle()"
-        >
-          Edit
-        </button>
-
-    </div>
-  </div> -->
+<div class="d-flex justify-content-center my-4 col-12">
   <input
-  class="searchInput"
-  placeholder="Search post"
-  type="text"
-  name="search"
-  [(ngModel)]="searchText"
-/>
-<button
-  type="button"
-  class="btn btn-primary"
-  data-mdb-toggle="modal"
-  data-mdb-target="#exampleModal"
->
-  Edit
-</button>
+    class="searchInput col-8"
+    placeholder="Search post"
+    type="text"
+    name="search"
+    [(ngModel)]="searchText"
+  />
+  <button
+    type="button"
+    class="btn btn-primary mx-2"
+    data-mdb-toggle="modal"
+    data-mdb-target="#exampleModal"
+  >
+    Add new
+  </button>
+</div>
 
-<div class="d-flex flex-wrap gap-2 justify-content-center">
-  <div class="col-2" *ngFor="let user of users | filter : searchText">
-    <div class="card mb-4">
-      <div class="card-body text-center">
-        <img
-          *ngIf="user.gender == 'male'"
-          src="/assets/img/user-male-image.jpeg"
-          alt="avatar"
-          class="rounded-circle img-fluid"
-          style="width: 150px"
-        />
-        <img
-          *ngIf="user.gender == 'female'"
-          src="/assets/img/user-female-image.png"
-          alt="avatar"
-          class="rounded-circle img-fluid"
-          style="width: 150px"
-        />
-        <h5 class="my-3">{{ user.name }}</h5>
-        <!-- <p class="text-muted mb-1">Email: {{ user.email }}</p> -->
-        <!-- <p class="text-muted mb-4">Gender: {{ user.gender }}</p> -->
-        <div class="d-flex justify-content-center mb-2">
-          <button
-            type="button"
-            class="btn btn-primary"
-            routerLink="/detail/{{ user.id }}"
-          >
-            Details
-          </button>
-          <button
-            type="button"
-            class="btn btn-outline-danger ms-1"
-            (click)="delete(user)"
-          >
-            Delete
-          </button>
+<div class="card-container d-flex flex-wrap gap-3 justify-content-center col-10 mx-auto">
+  <ng-container *ngFor="let user of users | filter : searchText">
+      <div class="card mb-4">
+        <div class="card-body text-center d-flex flex-column justify-content-between">
+          <img
+            [src]="'/assets/img/user-' + (user.gender == 'male' ? 'male' : 'female') + '-image.' + (user.gender == 'male' ? 'jpeg' : 'png')"
+            alt="avatar"
+            class="rounded-circle img-fluid"
+            style="width: 150px"
+          />
+          <h5 class="my-3">{{ user.name }}</h5>
+          <div class="d-flex justify-content-center">
+            <button
+              type="button"
+              class="btn btn-primary"
+              routerLink="/detail/{{ user.id }}"
+            >
+              Details
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-danger ms-1"
+              (click)="delete(user)"
+            >
+              Delete
+            </button>
+          </div>
         </div>
       </div>
+  </ng-container>
+</div>
+
+<div class="buttonPage">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <!-- Form per selezionare il numero di utenti per pagina -->
+    <div>
+      <select
+          id="userSelection"
+          class="form-select"
+          [(ngModel)]="selectedUserCount"
+          (change)="getUsers()"
+      >
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+      </select>
+  </div>
+
+
+    <!-- Pulsanti per la navigazione delle pagine -->
+    <div>
+      <button
+        *ngIf="this.userService.nPage != 1"
+        type="button"
+        #prevPage
+        class="btn btn-outline-primary me-2"
+        data-mdb-ripple-color="dark"
+        (click)="previousPage()"
+      >
+        Previous Page
+      </button>
+
+      <button type="button" class="btn btn-primary" (click)="nextPage()">
+        Next Page
+      </button>
     </div>
   </div>
 </div>
 
-<div class="buttonPage">
-  <!-- <form [formGroup]="nUserForm" class="numberUsers">
-      <mat-form-field>
-        <mat-label>Number of users</mat-label>
-        <input
-          matInput
-          type="number"
-          max="100"
-          formControlName="userNumber"
-          #userNumber
-          required
-        />
-      </mat-form-field>
-      <button
-        mat-raised-button
-        class="submitButtonUser"
-        type="submit"
-        [disabled]="nUserForm.invalid"
-        (click)="getUsers()"
-      >
-        Submit
-      </button>
-    </form> -->
-
-  <form [formGroup]="nUserForm" (ngSubmit)="getUsers()">
-    <div class="form-outline mb-4">
-      <input type="number" id="form1Example1" class="form-control"  formControlName="userNumber"/>
-      <label class="form-label" for="form1Example1"
-        >N° Users</label
-      >
-    </div>
-    <button type="submit" class="btn btn-primary" >
-      Submit
-    </button>
-
-  </form>
-  <button
-    *ngIf="this.userService.nPage != 1"
-    type="button"
-    #prevPage
-    class="btn btn-outline-primary"
-    data-mdb-ripple-color="dark"
-    (click)="previousPage()"
-  >
-    Previous Page
-  </button>
-
-  <button type="button" class="btn btn-primary" (click)="nextPage()">
-    Next Page
-  </button>
-</div>
 
 <app-add-user></app-add-user>

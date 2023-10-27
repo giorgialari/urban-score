@@ -45,15 +45,25 @@ export class PostService {
         catchError(this.handleError<Post[]>('getAllPosts', []))
       );
   }
-  addPosts(title: string, body: string) {
-    const addCommentUrl = `${this.PostUrl}/${this.userid}/posts?access-token=${this.APIkey}`;
-    return this.http.post<Post>(addCommentUrl, {
+  // addPosts(title: string, body: string) {
+  //   const addCommentUrl = `${this.PostUrl}/${this.userid}/posts?access-token=${this.APIkey}`;
+  //   return this.http.post<Post>(addCommentUrl, {
+  //     title: title,
+  //     body: body,
+  //     returnSecureToken: true
+  //   });
+  // }
+
+  addPost(user: string, user_id: number, title: string, body: string): Observable<Post> {
+    const addPostUrl = `${this.AllPostUrl}?access-token=${this.APIkey}`;
+    return this.http.post<Post>(addPostUrl, {
+      user: user,
+      user_id: user_id,
       title: title,
       body: body,
       returnSecureToken: true
     });
   }
-
 
   /**
    * Handle Http operation that failed.

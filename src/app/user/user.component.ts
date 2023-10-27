@@ -1,9 +1,8 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { of } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 
 import { User } from '../users';
 import { UserService } from '../user.service';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -14,35 +13,36 @@ export class UserComponent implements OnInit {
   token!: string;
   nUserForm: FormGroup;
   searchText: any;
+  selectedUserCount: number = 10;
+
 
 
   constructor(public userService: UserService) {
 
-  this.nUserForm = new FormGroup ({
-    userNumber: new FormControl ('', Validators.required)
-  })
+    this.nUserForm = new FormGroup({
+      userNumber: new FormControl('', Validators.required)
+    })
   }
   ngOnInit(): void {
     this.getUsers();
   }
 
-
   getUsers() {
-      this.userService.APIkey = localStorage.getItem('token') as string;
-      this.userService.nUsers = this.nUserForm.value.userNumber;
+    this.userService.APIkey = localStorage.getItem('token') as string;
+    this.userService.nUsers = this.selectedUserCount;
     this.userService.getUsers().subscribe(users => this.users = users);
 
   }
 
 
-nextPage(){
-  this.userService.nPage = this.userService.nPage+1
-  this. getUsers()
-}
-previousPage(){
-  this.userService.nPage = this.userService.nPage-1
-  this. getUsers()
-}
+  nextPage() {
+    this.userService.nPage = this.userService.nPage + 1
+    this.getUsers()
+  }
+  previousPage() {
+    this.userService.nPage = this.userService.nPage - 1
+    this.getUsers()
+  }
 
 
 
