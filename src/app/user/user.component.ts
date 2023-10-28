@@ -30,7 +30,7 @@ export class UserComponent implements OnInit {
   }
 
   getUsers() {
-    this.userService.APIkey = sessionStorage.getItem('token') as string;
+    this.userService.APIkey = localStorage.getItem('token') as string;
     this.userService.nUsers = this.selectedUserCount;
     this.userService.getUsers().subscribe(users => this.users = users);
 

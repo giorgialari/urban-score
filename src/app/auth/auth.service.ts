@@ -14,13 +14,13 @@ export class AuthService {
   isLoggedIn = false;
 
   constructor(private http: HttpClient, private router: Router) {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     this.isLoggedIn = !!token;
   }
 
 
   isAuthenticated() {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     return this.isLoggedIn || !!token;
   }
 
@@ -32,7 +32,7 @@ export class AuthService {
 
   logout() {
     this.router.navigate(['/']);
-    sessionStorage.removeItem('token');
+    localStorage.removeItem('token');
     this.isLoggedIn = false;
   }
 }

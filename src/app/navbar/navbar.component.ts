@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
   }
 
   private updateNavbarVisibility() {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (token || this.router.url !== '/') {
       this.showNavbar = true;
     } else {

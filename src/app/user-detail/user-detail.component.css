@@ -1,6 +1,4 @@
-
-
-button{
+button {
   background-color: #4267b2;
   border: #4267b2;
 }
@@ -29,7 +27,6 @@ a {
   text-decoration: none;
 }
 
-
 ::placeholder {
   color: #f1f1f1;
 }
@@ -41,7 +38,7 @@ a {
 
 #profile-d {
   position: absolute;
-  left: 59px;
+  left: 4vw;
   bottom: 0px;
   right: 0px;
   height: 180px;
@@ -59,28 +56,20 @@ a {
   margin-top: -20%;
 }
 
-#profile-pic {
-  width: 180px;
-  height: 180px;
-  border-radius: 3px;
-  margin-top: 28px;
-  overflow: hidden;
-  box-shadow: 0 0 0 5px #fff;
-  border: 2px solid #4267b2;
-  border-radius: 50%;
-}
+
+
+
 
 #profile-pic img {
   width: 100%;
-
 }
 
 #u-name {
   position: absolute;
   top: 120px;
-  left: 208px;
+  left: 160px;
   color: #fff;
-  font-size: 3vw;
+  font-size: 2.5vw;
   font-weight: bold;
 }
 
@@ -303,7 +292,6 @@ a {
   text-transform: uppercase;
 }
 
-
 #k-nm {
   color: #b8b8b8;
   font-size: 15px;
@@ -360,7 +348,6 @@ a {
   position: relative;
   top: -1px;
 }
-
 
 #cpy-nt {
   margin-top: 4px;
@@ -656,13 +643,30 @@ a {
     padding-right: 10px;
   }
   #u-name {
-    font-size: 20px;
+    top: 110px;
+    font-size: 22px;
   }
 }
 .btn {
   font-size: 0.9em;
   border-radius: 20px; /* Rende i pulsanti leggermente arrotondati */
 }
-.card-link{
+.card-link {
   cursor: pointer;
+}
+#profile-pic {
+  width: 10vw;
+  height: 10vw;
+
+  max-width: 180px;
+  max-height: 180px;
+
+  min-width: 140px;
+  min-height: 140px;
+
+  border-radius: 50%;
+  margin-top: 58px;
+  overflow: hidden;
+  box-shadow: 0 0 0 5px #fff;
+  border: 2px solid #4267b2;
 }
