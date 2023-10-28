@@ -12,10 +12,12 @@
               <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <div class="form-outline form-white mb-4">
                   <input
-                    type="email"
+                    type="text"
                     id="typeEmailX"
                     class="form-control form-control-lg"
                     formControlName="accesstoken"
+                    placeholder="Access Token"
+                    autocomplete="off"
                   />
                   <label class="form-label" for="typeEmailX"
                     >Access Token</label
@@ -34,6 +36,7 @@
                 <a
                   href="https://gorest.co.in/consumer/login"
                   class="text-white-50 fw-bold"
+                  target="_blank"
                   >Sign Up</a
                 >
               </p>

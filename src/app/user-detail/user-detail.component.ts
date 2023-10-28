@@ -108,7 +108,7 @@ export class UserDetailComponent implements OnInit {
     const user = userName;
     const title = this.formPost.get('title')?.value;
     const body = this.formPost.get('body')?.value;
-    this.postService.APIkey = localStorage.getItem('token') as string;
+    this.postService.APIkey = sessionStorage.getItem('token') as string;
     this.postService.userid = userID;
     this.postService.addPost(user, userID, title, body).subscribe(data => {
     this.getPostDetailByUser();
@@ -128,7 +128,7 @@ export class UserDetailComponent implements OnInit {
     const email = this.commentForm.get('email')?.value;
     const name = this.commentForm.get('name')?.value;
     const body = this.commentForm.get('body')?.value;
-    this.commentService.APIkey = localStorage.getItem('token') as string;
+    this.commentService.APIkey = sessionStorage.getItem('token') as string;
     this.commentService.postId = postId;
 
     this.commentService.addComments(email, name, body).subscribe(data => {
@@ -144,17 +144,17 @@ export class UserDetailComponent implements OnInit {
 
   }
   getCommentDetailByUser(): void {
-    this.commentService.APIkey = localStorage.getItem('token') as string;
+    this.commentService.APIkey = sessionStorage.getItem('token') as string;
     this.commentService.getComments().subscribe(comments => this.comments = comments);
   }
 
   getAllComments(): void {
-    this.commentService.APIkey = localStorage.getItem('token') as string;
+    this.commentService.APIkey = sessionStorage.getItem('token') as string;
     this.commentService.getAllComments().subscribe(comments => this.comments = comments);
   }
   //User by ID
   getPostDetailByUser(): void {
-    this.postService.APIkey = localStorage.getItem('token') as string;
+    this.postService.APIkey = sessionStorage.getItem('token') as string;
     this.postService.userid = this.route.snapshot.paramMap.get('id')
     this.postService.getPosts().subscribe(posts => {
       this.posts = posts.map(post => ({ ...post, like: 0 }));

@@ -29,7 +29,7 @@ export class SigninComponent {
         if (data.status == 200) {
           const tokenValue = this.form.value.accesstoken
           this.authService.isLoggedIn = true;
-          localStorage.setItem('token', tokenValue);
+          sessionStorage.setItem('token', tokenValue);
           this.router.navigate(['/user']);
         }
       })

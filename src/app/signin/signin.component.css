@@ -11,3 +11,11 @@
 .btn:hover {
   background-color: #4A73AB;
 }
+
+input[type="text"]:not(:placeholder-shown) {
+  background-color: transparent;
+}
+
+input[type="text"]:focus {
+  background-color: transparent;
+}
