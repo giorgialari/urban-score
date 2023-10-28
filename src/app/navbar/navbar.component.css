@@ -43,6 +43,23 @@
 }
 
 /* Ottimizzazione per dispositivi mobili */
+@media (max-width: 568px) {
+
+  .navbar .navbar-brand img {
+    height: 30px;
+  }
+
+  .navbar .searchInput {
+    width: 100px !important; /* Adatta la larghezza dell'input di ricerca */
+    flex-grow: 1; /* Consente all'input di crescere e occupare lo spazio disponibile */
+    margin: 0 10px;
+    font-size: 13px;
+  }
+  button{
+    width: 50% !important;
+    font-size: 13px !important;
+  }
+}
 @media (max-width: 768px) {
   .navbar .navbar-brand img {
     height: 40px;
