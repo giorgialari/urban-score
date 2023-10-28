@@ -4,11 +4,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { MessageService } from './message.service';
-import { Comment } from './comments';
+import { MessageService } from '../message/message.service';
+import { Comment } from '../../models/comments';
 
-import { Post } from './posts';
-import { PostService } from './post.service';
+import { Post } from '../../models/posts';
+import { PostService } from '../post/post.service';
 
 
 @Injectable({

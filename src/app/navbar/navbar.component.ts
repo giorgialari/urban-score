@@ -2,6 +2,7 @@ import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/cor
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
+import { SearchService } from '../services/search/search.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,8 +10,9 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private searchService: SearchService) { }
   showNavbar = false;
+  public searchText: string = '';
 
   ngOnInit() {
     this.updateNavbarVisibility();
@@ -31,7 +33,9 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-
+  onSearchTextChanged(): void {
+    this.searchService.setSearchText(this.searchText);
+  }
 
   logout() {
     this.showNavbar = false;

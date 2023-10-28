@@ -1,21 +1,15 @@
-<div class="d-flex justify-content-center my-4 col-12">
-  <input
-    class="searchInput col-8 me-1"
-    placeholder="Search user..."
-    type="text"
-    name="search"
-    [(ngModel)]="searchText"
-  />
-  <button
-    type="button"
-    class="btn btn-primary p-2"
-    data-mdb-toggle="modal"
-    data-mdb-target="#exampleModal"
-  >
-    Add new user
-  </button>
-</div>
-<div class="card-container d-flex flex-column col-10 mx-auto">
+<div class="card-container d-flex flex-column col-10 my-2 mx-auto">
+  <div class="d-flex justify-content-between mx-4">
+    <h3>Users</h3>
+    <button
+      type="button"
+      class="btn btn-primary p-2"
+      data-mdb-toggle="modal"
+      data-mdb-target="#exampleModal"
+    >
+      Add new user
+    </button>
+  </div>
   <div class="d-flex flex-wrap gap-3 justify-content-center mt-5">
     <ng-container *ngFor="let user of users | filter : searchText">
       <!-- <div class="card mb-4">
@@ -56,7 +50,9 @@
           alt="avatar"
           class="rounded-circle img-fluid"
         />
-        <div class="card-body text-center d-flex flex-column justify-content-between">
+        <div
+          class="card-body text-center d-flex flex-column justify-content-between"
+        >
           <h5>{{ user.name }}</h5>
           <div class="buttonPage d-flex justify-content-center aling-items-end">
             <button

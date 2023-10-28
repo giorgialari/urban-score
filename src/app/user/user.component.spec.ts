@@ -1,12 +1,12 @@
 import { ComponentFixture, discardPeriodicTasks, fakeAsync, flush, flushMicrotasks, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './user.component';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user/user.service';
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { of } from 'rxjs';
-import { User } from '../users';
+import { User } from '../models/users';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggle, MatSlideToggleModule } from '@angular/material/slide-toggle';

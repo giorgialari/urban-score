@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { UserService } from './user.service';
-import { User } from './users';
+import { User } from '../../models/users';
 
 
 
@@ -10,7 +10,7 @@ describe('UserService', () => {
   let userService: UserService;
   let httpTestingController: HttpTestingController;
   let fakeApi = 'abc123'
-  
+
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -21,7 +21,7 @@ describe('UserService', () => {
 
   });
 
-    
+
 it('should call getUsers and return an array of users', () => {
   const user: User [] = [
     {
@@ -100,7 +100,7 @@ it('should call getUsers and return an array of users', () => {
   let url = 'https://gorest.co.in/public/v2/users'
   let nUsers = '10';
   let nPage = 1;
-    
+
   userService.getUsers().subscribe((res) => {
     expect(res).toEqual(user);
   });

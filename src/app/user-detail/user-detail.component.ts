@@ -4,16 +4,17 @@ import { Router } from '@angular/router';
 
 
 
-import { User } from '../users'
-import { UserService } from '../user.service';
-import { PostService } from '../post.service';
-import { CommentService } from '../comment.service';
-import { Post } from '../posts';
-import { Comment } from '../comments';
+import { User } from '../models/users'
+import { UserService } from '../services/user/user.service';
+import { PostService } from '../services/post/post.service';
+import { CommentService } from '../services/comment/comment.service';
+import { Post } from '../models/posts';
+import { Comment } from '../models/comments';
 
 import { ViewChild, ElementRef } from '@angular/core';
 import { HostListener } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SearchService } from '../services/search/search.service';
 
 
 
@@ -31,6 +32,7 @@ export class UserDetailComponent implements OnInit {
   comments: Comment[] = [];
   commentForm: FormGroup
   formPost: FormGroup
+  searchText: string = '';
 
   @ViewChild('post') post!: ElementRef;
   @ViewChild('postIdP') postIdP!: ElementRef;
@@ -58,6 +60,7 @@ export class UserDetailComponent implements OnInit {
     private userService: UserService,
     private postService: PostService,
     private commentService: CommentService,
+    private searchService: SearchService,
   ) {
     // Initialize the form Comment
     this.commentForm = new FormGroup({
@@ -72,6 +75,9 @@ export class UserDetailComponent implements OnInit {
       user_id: new FormControl('', Validators.required),
       title: new FormControl('', Validators.required),
       body: new FormControl('', Validators.required)
+    });
+    this.searchService.searchText$.subscribe(text => {
+      this.searchText = text;
     });
   }
 
@@ -150,7 +156,13 @@ export class UserDetailComponent implements OnInit {
   getPostDetailByUser(): void {
     this.postService.APIkey = localStorage.getItem('token') as string;
     this.postService.userid = this.route.snapshot.paramMap.get('id')
-    this.postService.getPosts().subscribe(posts => this.posts = posts);
+    this.postService.getPosts().subscribe(posts => {
+      this.posts = posts.map(post => ({ ...post, like: 0 }));
+    });
+
+  }
+  onLikePost(post: Post): void {
+    post.like += 1;
   }
 
   getDetailUser(): void {

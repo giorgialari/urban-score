@@ -81,6 +81,8 @@ a {
   margin-top: 28px;
   overflow: hidden;
   box-shadow: 0 0 0 5px #fff;
+  border: 2px solid #4267b2;
+  border-radius: 50%;
 }
 
 #profile-pic img {
@@ -678,4 +680,7 @@ a {
 .btn {
   font-size: 0.9em;
   border-radius: 20px; /* Rende i pulsanti leggermente arrotondati */
+}
+.card-link{
+  cursor: pointer;
 }

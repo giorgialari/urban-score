@@ -1,16 +1,15 @@
 <nav class="navbar navbar-expand-lg" *ngIf="showNavbar">
   <div class="container">
-    <!-- <a class="navbar-brand me-2" href="https://mdbgo.com/">
+    <a class="navbar-brand me-2" routerLink="/user">
       <img
-        src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-        height="16"
+        src="../../assets/img/logo.png"
+        height="50"
         alt="MDB Logo"
         loading="lazy"
         style="margin-top: -1px;"
       />
-    </a> -->
-
-    <button
+    </a>
+    <!-- <button
       class="navbar-toggler"
       type="button"
       data-mdb-toggle="collapse"
@@ -20,20 +19,33 @@
       aria-label="Toggle navigation"
     >
       <i class="fas fa-bars"></i>
-    </button>
+    </button> -->
 
-    <div class="collapse navbar-collapse" id="navbarButtonsExample">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-        <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/user">Dashboard</a>
-        </li>
-      </ul>
+    <!-- <div class="collapse navbar-collapse" id="navbarButtonsExample"> -->
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/user">
+          <i class="fas fa-user-group"></i> User </a>
+      </li>
+    </ul>
 
-      <div class="d-flex align-items-center">
-        <button type="button" class="btn btn-outline-primary text-white border-white px-3 me-2" (click)="logout()" >
-          Logout
-        </button>
-      </div>
+    <div class="d-flex align-items-center">
+      <input
+        class="searchInput me-2"
+        placeholder="Search something..."
+        type="text"
+        name="search"
+        [(ngModel)]="searchText"
+        (input)="onSearchTextChanged()"
+      />
+      <button
+        type="button"
+        class="btn btn-outline-primary text-white border-white px-3 me-2"
+        (click)="logout()"
+      >
+        Logout
+      </button>
     </div>
   </div>
+  <!-- </div> -->
 </nav>

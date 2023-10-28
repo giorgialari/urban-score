@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Post } from './posts';
+import { Post } from '../../models/posts';
 
 import { PostService } from './post.service';
 
@@ -34,13 +34,13 @@ describe('PostService', () => {
     let userid = 2173;
     service.userid = userid
     let url = 'https://gorest.co.in/public/v2/users'
- 
+
     service.getPosts().subscribe((res) => {
       expect(res).toBe(post)
     });
-  
+
     const req = httpTestingController.expectOne({
-  
+
       method: 'GET',
       url: `${url}/${userid}/posts?access-token=${APIkey}`,
     });
@@ -115,12 +115,12 @@ describe('PostService', () => {
     let nPost = 10;
     let nPage = 1;
     let url = 'https://gorest.co.in/public/v2/posts'
- 
+
     service.getAllPosts().subscribe((res) => {
       expect(res).toBe(post)
     });
     const req = httpTestingController.expectOne({
-  
+
       method: 'GET',
       url: `${url}?per_page=${nPost}&page=${nPage}&access-token=${APIkey}`,
     });

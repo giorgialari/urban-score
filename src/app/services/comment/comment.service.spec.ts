@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { CommentService } from './comment.service';
-import { Comment } from './comments';
+import { Comment } from '../../models/comments';
 
 describe('CommentService', () => {
   let service: CommentService;
@@ -31,16 +31,16 @@ describe('CommentService', () => {
     let url = 'https://gorest.co.in/public/v2/posts'
     let postId = 2173;
     service.postId = postId;
-      
+
     service.getComments().subscribe((res) => {
       expect(res).toEqual(comment);
     });
-  
+
     const req = httpTestingController.expectOne({
       method: 'GET',
       url: `${url}/${postId}/comments?access-token=${APIkey}`,
     });
-  
+
     req.flush(comment);
   });
 

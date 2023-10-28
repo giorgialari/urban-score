@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { User } from '../users';
-import { UserService } from '../user.service';
+import { User } from '../models/users';
+import { UserService } from '../services/user/user.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SearchService } from '../services/search/search.service';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -15,13 +16,14 @@ export class UserComponent implements OnInit {
   searchText: any;
   selectedUserCount: number = 10;
 
-
-
-  constructor(public userService: UserService) {
+  constructor(public userService: UserService, private searchService: SearchService) {
 
     this.nUserForm = new FormGroup({
       userNumber: new FormControl('', Validators.required)
     })
+    this.searchService.searchText$.subscribe(text => {
+      this.searchText = text;
+    });
   }
   ngOnInit(): void {
     this.getUsers();
@@ -49,7 +51,11 @@ export class UserComponent implements OnInit {
 
 
   delete(user: User): void {
-    this.users = this.users.filter(u => u !== user);
-    this.userService.deleteUser(user.id).subscribe();
+    if (confirm('Are you sure you want to delete this user?')) {
+      this.userService.deleteUser(user.id).subscribe(() => {
+        this.getUsers();
+      });
+    }
+
   }
 }

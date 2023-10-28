@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { AuthService } from './auth.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { User } from '../users';
+import { User } from '../models/users';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -94,11 +94,11 @@ describe('AuthService', () => {
     service.APIkey = fakeApi
     let APIkey = service.APIkey
     let url = 'https://gorest.co.in/public/v2/users'
-      
+
     service.signIn(APIkey).subscribe((res) => {
       expect(res.status).toEqual(200)
     });
-  
+
     const req = httpTestingController.expectOne({
       method: 'GET',
       url: `${url}?access-token=${APIkey}`,

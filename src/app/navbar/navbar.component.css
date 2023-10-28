@@ -1,9 +1,31 @@
 .navbar{
   background-color: #4267b2;
 }
+:host {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Questo assicura che la navbar rimanga sopra agli altri elementi */
+}
+
 
 .btn, .btn-primary {
   font-size: 0.9em;
   border-radius: 20px;
 }
 
+.searchInput {
+  border: none;
+  border-bottom: 2px solid #e4e6eb;
+  border-radius: 24px;
+  padding: 5px 8px;
+  font-size: 1em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.searchInput:focus {
+  border-color: #b0b3b8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
