@@ -1,4 +1,4 @@
-.navbar{
+.navbar {
   background-color: #4267b2;
 }
 :host {
@@ -9,8 +9,8 @@
   z-index: 1000; /* Questo assicura che la navbar rimanga sopra agli altri elementi */
 }
 
-
-.btn, .btn-primary {
+.btn,
+.btn-primary {
   font-size: 0.9em;
   border-radius: 20px;
 }
@@ -28,4 +28,39 @@
   border-color: #b0b3b8;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   outline: none;
+}
+
+/* Stili base per la navbar */
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .navbar-nav {
+  display: flex;
+  align-items: center;
+}
+
+/* Ottimizzazione per dispositivi mobili */
+@media (max-width: 768px) {
+  .navbar .navbar-brand img {
+    height: 40px;
+  }
+
+  .navbar .searchInput {
+    width: auto; /* Adatta la larghezza dell'input di ricerca */
+    flex-grow: 1; /* Consente all'input di crescere e occupare lo spazio disponibile */
+    margin: 0 10px;
+  }
+
+}
+@media (max-width: 991px) {
+  .navbar-toggler,
+  .block-menu {
+    order: 2;
+  }
+  .block-search {
+    order: 1;
+  }
 }

@@ -1,20 +1,5 @@
 
 
-* {
-  outline: none;
-}
-
-body {
-  margin: 40px 0px;
-  background-color: #385591;
-}
-
-body,
-input,
-button {
-  font-family: Helvetica;
-}
-
 button{
   background-color: #4267b2;
   border: #4267b2;
@@ -156,9 +141,6 @@ a {
 /* Profile image header finished */
 
 /* Content area */
-#main-content {
-  padding: 55px 0px 0px 55px;
-}
 
 #l-col,
 #m-col,
