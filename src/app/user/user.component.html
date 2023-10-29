@@ -12,33 +12,6 @@
   </div>
   <div class="d-flex flex-wrap gap-3 justify-content-center mt-5">
     <ng-container *ngFor="let user of users | filter : searchText">
-      <!-- <div class="card mb-4">
-        <div class="card-body text-center d-flex flex-column justify-content-between">
-          <img
-            [src]="'/assets/img/user-' + (user.gender == 'male' ? 'male' : 'female') + '-image.' + (user.gender == 'male' ? 'jpeg' : 'png')"
-            alt="avatar"
-            class="rounded-circle img-fluid"
-            style="width: 150px"
-          />
-          <h5 class="my-3">{{ user.name }}</h5>
-          <div class="d-flex justify-content-center">
-            <button
-              type="button"
-              class="btn btn-primary"
-              routerLink="/detail/{{ user.id }}"
-            >
-              Details
-            </button>
-            <button
-              type="button"
-              class="btn btn-outline-danger ms-1"
-              (click)="delete(user)"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div> -->
       <div class="card mb-5">
         <img
           [src]="
@@ -74,7 +47,7 @@
       </div>
     </ng-container>
   </div>
-  <div class="buttonPage col-6 mx-auto">
+  <div class="buttonPage col-12 col-md-7 mx-auto">
     <div class="d-flex justify-content-center align-items-center">
       <!-- Form per selezionare il numero di utenti per pagina -->
       <div class="me-1">
@@ -112,4 +85,4 @@
   </div>
 </div>
 
-<app-add-user></app-add-user>
+<app-add-user (addUserEventEmitter)="addUserEventEmitted()"></app-add-user>

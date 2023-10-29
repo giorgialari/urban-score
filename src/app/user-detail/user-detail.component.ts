@@ -26,17 +26,22 @@ import { SearchService } from '../services/search/search.service';
 
 export class UserDetailComponent implements OnInit {
 
-
+  showComment = false;
+  showSectionImg = true;
   user: User | undefined;
   posts: Post[] = [];
   comments: Comment[] = [];
   commentForm: FormGroup
   formPost: FormGroup
   searchText: string = '';
+  showFullScreen: boolean = false;
+  currentImage: string = '';
+
 
   @ViewChild('post') post!: ElementRef;
   @ViewChild('postIdP') postIdP!: ElementRef;
   @ViewChild('postNameP') postNameP!: ElementRef;
+  @ViewChild('idCommentPost') idCommentPost!: ElementRef;
 
   @ViewChild('postIdEl') postIdEl!: ElementRef;
   @ViewChild('postTitle') postTitle!: ElementRef;
@@ -81,7 +86,6 @@ export class UserDetailComponent implements OnInit {
     });
   }
 
-  @ViewChild('idCommentPost') idCommentPost!: ElementRef;
 
 
   ngOnInit(): void {
@@ -104,6 +108,15 @@ export class UserDetailComponent implements OnInit {
     this.displayStyle = "none";
   }
 
+  openImage(imageUrl: string) {
+    this.currentImage = imageUrl;
+    this.showFullScreen = true;
+  }
+
+  closeImage() {
+    this.showFullScreen = false;
+  }
+
   onSubmitPost(userName: string, userID: number): void {
     const user = userName;
     const title = this.formPost.get('title')?.value;
@@ -111,7 +124,7 @@ export class UserDetailComponent implements OnInit {
     this.postService.APIkey = localStorage.getItem('token') as string;
     this.postService.userid = userID;
     this.postService.addPost(user, userID, title, body).subscribe(data => {
-    this.getPostDetailByUser();
+      this.getPostDetailByUser();
       // Reset form-inputs:
       this.formPost.reset();
     },
@@ -122,7 +135,9 @@ export class UserDetailComponent implements OnInit {
       });
   }
 
-
+  notImplemented() {
+    alert('Sorry, this feature is not available yet!')
+  }
   onSubmitComment(postId: number): void {
 
     const email = this.commentForm.get('email')?.value;

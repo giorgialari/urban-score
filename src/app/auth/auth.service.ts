@@ -21,7 +21,11 @@ export class AuthService {
 
   isAuthenticated() {
     const token = localStorage.getItem('token');
-    return this.isLoggedIn || !!token;
+    if (token) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   signIn() {

@@ -4,6 +4,7 @@ import { User } from '../models/users';
 import { UserService } from '../services/user/user.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SearchService } from '../services/search/search.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -16,7 +17,8 @@ export class UserComponent implements OnInit {
   searchText: any;
   selectedUserCount: number = 10;
 
-  constructor(public userService: UserService, private searchService: SearchService) {
+
+  constructor(public userService: UserService, private searchService: SearchService, private router: Router) {
 
     this.nUserForm = new FormGroup({
       userNumber: new FormControl('', Validators.required)
@@ -30,13 +32,22 @@ export class UserComponent implements OnInit {
   }
 
   getUsers() {
+
     this.userService.APIkey = localStorage.getItem('token') as string;
     this.userService.nUsers = this.selectedUserCount;
-    this.userService.getUsers().subscribe(users => this.users = users);
+    this.userService.getUsers().subscribe(users => {
+      this.users = users
+      console.log(this.selectedUserCount)
+      console.log(this.users.length)
+    });
+
+
 
   }
 
-
+  addUserEventEmitted() {
+    this.getUsers();
+  }
   nextPage() {
     this.userService.nPage = this.userService.nPage + 1
     this.getUsers()
@@ -45,7 +56,6 @@ export class UserComponent implements OnInit {
     this.userService.nPage = this.userService.nPage - 1
     this.getUsers()
   }
-
 
 
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user/user.service';
 
@@ -9,8 +9,7 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class AddUserComponent {
   form: FormGroup;
-  urlParams = new URLSearchParams(window.location.search)
-  urlVal = this.urlParams.get('token')
+  @Output() addUserEventEmitter: EventEmitter<any> = new EventEmitter();
 
   constructor(public userService: UserService) {
     this.form = new FormGroup({
@@ -22,8 +21,14 @@ export class AddUserComponent {
   }
 
   add() {
-    this.userService.APIkey = this.urlVal as string
-    this.userService.addUser(this.form.value).subscribe();
-
+    this.userService.APIkey = localStorage.getItem('token') as string;
+    this.userService.addUser(this.form.value).subscribe(
+      (response) => {
+        this.addUserEventEmitter.emit(response);
+      },
+      (error) => {
+        alert(error.error.error.message);
+      }
+    );
   }
 }
